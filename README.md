@@ -22,9 +22,9 @@ O curso está organizado em 16 etapas:
 
 | Aula | Período | Conteúdo |
 |---|---|---|
-| 01 | 03/08 – 07/08 | 💻 [Nivelamento Extraordinária](01-introducao-a-prompts/) | |
-| 02 | 10/08 – 14/08 | 💻 [Prompting como Ferramenta de Poder](Prompt-como-ferramenta-do-poder/) ||
-| 03 | 17/08 – 21/08 | 💻 [IA na Rotina — Automação Inteligente](IA-na-rotina-automacao-inteligente/) ||
+| 01 | 03/08 – 07/08 | 💻 [Nivelamento Extraordinária](01-introducao-a-prompts/)✅ | | 
+| 02 | 10/08 – 14/08 | 💻 [Prompting como Ferramenta de Poder](Prompt-como-ferramenta-do-poder/)✅ ||
+| 03 | 17/08 – 21/08 | 💻 [IA na Rotina — Automação Inteligente](IA-na-rotina-automacao-inteligente/)✅ ||
 | 04 | 24/08 – 28/08 | IA Generativa Aplicada — Além do ChatGPT |
 | 05 | 31/08 – 04/09 | Dados como Insumo para Decisão |
 | 06 | 07/09 – 11/09 | Comunicação + Narrativa Potencializada |
