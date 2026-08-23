@@ -1,4 +1,6 @@
 # Todas-em-tech-ia-aplicada
+<img width="728" height="213" alt="image" src="https://github.com/user-attachments/assets/b841a11f-53af-4e61-8b49-fead0b01d119" />
+
 ---
 # Curso de Inteligência Artificial
 
