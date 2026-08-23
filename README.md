@@ -22,7 +22,7 @@ O curso está organizado em 16 etapas:
 
 | Aula | Período | Conteúdo |
 |---|---|---|
-| 01 | 03/08 – 07/08 | Nivelamento Extraordinária |
+| 01 | 03/08 – 07/08 | 💻 [Nivelamento Extraordinária](01-introducao-a-prompts/) | |
 | 02 | 10/08 – 14/08 | Prompting como Ferramenta de Poder |
 | 03 | 17/08 – 21/08 | IA na Rotina — Automação Inteligente |
 | 04 | 24/08 – 28/08 | IA Generativa Aplicada — Além do ChatGPT |
