@@ -1,0 +1,985 @@
+{
+    "name": "Integration Webhooks, Make AI Agent",
+    "flow": [
+        {
+            "id": 11,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2745059,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 585,
+                    "y": 993
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "My gateway-webhook webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 23,
+            "module": "ai-local-agent:RunLocalAIAgent",
+            "version": 0,
+            "parameters": {
+                "makeConnectionId": 10620253
+            },
+            "mapper": {
+                "files": [],
+                "message": "Pergunta: {{11.pergunta}}",
+                "timeout": "",
+                "threadId": "{{11.pergunta}}",
+                "outputType": "text",
+                "tokenLimit": "50",
+                "modelConfig": {
+                    "recursionLimit": "300",
+                    "iterationsFromHistoryCount": "10"
+                },
+                "defaultModel": "small",
+                "systemPrompt": "# Role and Objective\r\nVocê é o assistente virtual oficial e tutor acadêmico do programa **Todas em Tech - IA Aplicada**. Sua missão é consultar as ferramentas de documentos para buscar os conteúdos oficiais do curso e explicá-los de forma acolhedora, estruturada e direta às alunas.\r\n\r\n# Core Guardrails & Restrictions (Foco Absoluto)\r\n- **Restrição de Conteúdo Prático:** Você **só** pode explicar, aprofundar ou detalhar os conteúdos teóricos e práticos das **Semanas 1, 2, 3 e 4** do curso. Se a usuária pedir o conteúdo detalhado de qualquer semana a partir da Semana 5, responda rigidamente: *\"Não se precipite, nós estamos na semana 4, foque nesse conteúdo!\"*.\r\n- **Exceção para Ferramentas e Links do Curso:** O acesso a **manuais, guias de instalação, ferramentas (como n8n, Make, Supabase, Google AI Studio) e links oficiais** relacionados aos tópicos do curso é **totalmente permitido e incentivado**, devendo ser consultado diretamente no documento de links conectado.\r\n- **Exceção para o Cronograma Geral:** Se a usuária perguntar sobre o **cronograma completo** ou a lista de aulas, você **pode e deve** mostrar a lista com todas as 16 semanas. No entanto, após exibir a lista, reforce que o foco de estudos práticos ativo é nas Semanas 1 a 4.\r\n- **Bloqueio de Assuntos Externos:** Se a usuária perguntar sobre qualquer assunto totalmente fora do curso (ex: culinária, política, esportes, etc.), negue imediatamente de forma firme e educada: *\"Desculpe, mas eu só posso falar de assuntos referentes ao curso Todas em Tech - IA Aplicada.\"*\r\n\r\n# Cronograma Completo de Referência (Disponível para consulta geral)\r\n- **Semana 1 (03/08 – 07/08):** Nivelamento Extraordinário\r\n- **Semana 2 (10/08 – 14/08):** Prompting como Ferramenta de Poder\r\n- **Semana 3 (17/08 – 21/08):** IA na Rotina — Automação Inteligente\r\n- **Semana 4 (24/08 – 28/08):** IA Generativa Aplicada — Além do ChatGPT\r\n- **Semana 5 (31/08 – 04/09):** Dados como Insumo para Decisão\r\n- **Semana 6 (07/09 – 11/09):** Comunicação + Narrativa Potencializada\r\n- **Semana 7 (14/09 – 18/09):** Visão Estratégica — Selecionando o Problem Certo\r\n- **Semana 8 (21/09 – 25/09):** Dados Avançado — De Bruto a Insight\r\n- **Semana 9 (28/09 – 02/10):** Ética, Viés e Responsabilidade\r\n- **Semana 10 (05/10 – 09/10):** Modelagem de Negócio + Precificação\r\n- **Semana 11 (12/10 – 16/10):** Casos de Uso Avançados por Setor\r\n- **Semana 12 (19/10 – 23/10):** Vibe Coding — Prototipar Sem Programar\r\n- **Semana 13 (26/10 – 30/10):** RAG, Agents e Automação Avançada\r\n- **Semana 14 (02/11 – 06/11):** Escala e Otimização\r\n- **Semana 15 (09/11 – 13/11):** Apresentação + Feedback de Mercado\r\n- **Semana 16 (16/11 – 19/11):** Lançamento + Celebração + Próximos Passos\r\n\r\n# Fluxo de Atendimento e Dinâmica de Resposta\r\n\r\n### 1. Identificação Inicial do Nome\r\n- No início da interação, caso a usuária ainda não tenha informado o nome dela, pergunte o nome de forma acolhedora.\r\n- **Regra da Mensagem de Boas-Vindas:** Só envie a mensagem completa de boas-vindas (*\"Seja muito bem-vinda ao programa Todas em Tech - IA Aplicada [Nome da Aluna]! Parabéns pela iniciativa de estudar inteligência artificial...\"*) **assim que a usuária fornecer o nome dela**. Antes disso, peça apenas o nome.\r\n\r\n### 2. Consulta e Explicação do Conteúdo\r\n- Assim que a usuária escolher uma semana válida (Semanas 1 a 4) ou solicitar uma ferramenta/manual, consulte os documentos conectados nas ferramentas.\r\n- Entregue um **resumo estruturado, claro e didático** do assunto.\r\n- Vá direto ao ponto, sem pedir confirmações extras.\r\n\r\n# Regra de Consulta e Envio de Links\r\n- **Busca em Documentos de Links:** Sempre que a usuária solicitar um link, manual, ferramenta específica (como n8n, Make, Supabase, Google AI Studio) ou material de referência (como o manual de instalação ou guias das semanas), você **deve consultar ativamente o documento de links** conectado nas suas ferramentas.\r\n- **Precisão na Resposta:** Extraia e envie estritamente o link correto correspondente ao que foi solicitado, acompanhado de uma breve e clara orientação baseada no material. Nunca invente URLs.\r\n\r\n### 3. Encerramento e Engajamento\r\nAo finalizar a explicação de qualquer conteúdo, encerre obrigatoriamente fazendo estas duas perguntas:\r\n1. *\"Gostaria de saber mais das outras semanas?\"*\r\n2. *\"Você quer que eu te sugira algumas questões para nós treinarmos o seu conhecimento?\"*",
+                "fallbackEnabled": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 885,
+                    "y": 993
+                },
+                "restore": {
+                    "expect": {
+                        "files": {
+                            "mode": "chose"
+                        },
+                        "outputType": {
+                            "label": "Text"
+                        },
+                        "defaultModel": {
+                            "mode": "chose",
+                            "label": "SmallModel: gpt-5-nano. Reasoning: minimal. Efficiently handles long conversations and reasoning, delivering smart conclusions quickly"
+                        }
+                    },
+                    "parameters": {
+                        "makeConnectionId": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "ai-provider"
+                            },
+                            "label": "Make's AI Provider (default)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "makeConnectionId",
+                        "type": "account:ai-provider,openai-gpt-3,anthropic-claude,gemini-ai-q9zyjp,ai-agent-foundry-openai,ai-agent-foundry-non-openai,mistral-ai,cohere,groq,ai-agent-xai,amazon-bedrock,ai-agent-openai-compatible",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "defaultModel",
+                        "type": "select",
+                        "label": "Model",
+                        "required": true
+                    },
+                    {
+                        "name": "fallbackEnabled",
+                        "type": "boolean",
+                        "label": "Enable fallback connection",
+                        "required": true
+                    },
+                    {
+                        "name": "tokenLimit",
+                        "type": "number",
+                        "label": "Maximum output length (%)",
+                        "validate": {
+                            "max": 100,
+                            "min": 20
+                        }
+                    },
+                    {
+                        "name": "systemPrompt",
+                        "type": "text",
+                        "label": "Instructions"
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Input",
+                        "required": true
+                    },
+                    {
+                        "name": "files",
+                        "spec": [
+                            {
+                                "name": "fileName",
+                                "type": "filename",
+                                "label": "File name",
+                                "semantic": "file:name"
+                            },
+                            {
+                                "name": "data",
+                                "type": "buffer",
+                                "label": "Data",
+                                "semantic": "file:data"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Input files"
+                    },
+                    {
+                        "name": "threadId",
+                        "type": "text",
+                        "label": "Conversation ID",
+                        "validate": {
+                            "max": 256
+                        }
+                    },
+                    {
+                        "name": "modelConfig",
+                        "spec": [
+                            {
+                                "name": "recursionLimit",
+                                "type": "number",
+                                "label": "Steps per agent call"
+                            },
+                            {
+                                "name": "iterationsFromHistoryCount",
+                                "type": "number",
+                                "label": "Maximum conversation history"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Model configuration"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "number",
+                        "label": "Step timeout",
+                        "validate": {
+                            "max": 600,
+                            "min": 120
+                        }
+                    },
+                    {
+                        "name": "outputType",
+                        "type": "select",
+                        "label": "Response format",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "text",
+                                "make-schema",
+                                "udt-schema"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "tools": [
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 26,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/15swI8QqUyUGHcYp_mh1WnVQgoHk8IxNVYjJi5XQNtPA",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 614,
+                                    "y": 1241
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                " Semana 01"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 27,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/1o2qEYY8Q6vGzly9rrsLi7kjY0H-IZ--lVi15OVRoz_I",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1169,
+                                    "y": 1278
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                "Semana 02"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 28,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/1LyfQsVoZ5u6qi_PNOvCjlIutlxMrCjELvOZAZSdR1Gs",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 673,
+                                    "y": 1425
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                " Semana 03"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 29,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/1YbFcMl2a8pjS9yz6hCLTdy3WJIPz_CISrbC9uE8Lb9E",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1128,
+                                    "y": 1439
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                "Semana 04"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 30,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/1Q_9N1IRtaGAmycsGSieLHRNW5JFwZ0fvDPelbTcInqE",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 742,
+                                    "y": 1653
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                "Manual de Instalação e Execução do n8n (Local)"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Google Docs: Get Content of a Document",
+                    "description": "Gets a content of a document.",
+                    "flow": [
+                        {
+                            "id": 31,
+                            "module": "google-docs:getADocument",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 10715180
+                            },
+                            "mapper": {
+                                "filter": "image",
+                                "select": "dropdown",
+                                "document": "/19lLs5tBeONWUGng7hdJ-BB-IMGzpIhPS/1442d3J7HoIiknuSb40ZLd2w-SfxlUa8lw4EF6mE3EWE",
+                                "destination": "drive",
+                                "includeTabsContent": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1084,
+                                    "y": 1642
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "filter": {
+                                            "label": "Image"
+                                        },
+                                        "select": {
+                                            "label": "By Dropdown"
+                                        },
+                                        "document": {
+                                            "path": [
+                                                "semanas",
+                                                "Banco de Links e Referências Gerais do Curso"
+                                            ]
+                                        },
+                                        "destination": {
+                                            "label": "My Drive"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "Patrícia's Google connection (patriciasavarezioliveira@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Get Content of a Document",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "map",
+                                                "dropdown"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "includeTabsContent",
+                                        "type": "boolean",
+                                        "label": "Include Tabs Content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "filter",
+                                        "type": "select",
+                                        "label": "Filter",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "image",
+                                                "drawing",
+                                                "chart"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "destination",
+                                        "type": "select",
+                                        "label": "Choose a Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "document",
+                                        "type": "file",
+                                        "label": "Document ID",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 24,
+            "module": "gateway:WebhookRespond",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "body": "{{`23`}}",
+                "status": "200",
+                "headers": []
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1185,
+                    "y": 993
+                },
+                "restore": {
+                    "expect": {
+                        "headers": {
+                            "mode": "chose"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "status",
+                        "type": "uinteger",
+                        "label": "Status",
+                        "required": true,
+                        "validate": {
+                            "min": 100
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "type": "any",
+                        "label": "Body"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key",
+                                "required": true,
+                                "validate": {
+                                    "max": 256
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value",
+                                "required": true,
+                                "validate": {
+                                    "max": 4096
+                                }
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Custom headers",
+                        "validate": {
+                            "maxItems": 16
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
