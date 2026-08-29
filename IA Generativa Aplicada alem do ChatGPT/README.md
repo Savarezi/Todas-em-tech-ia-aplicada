@@ -29,4 +29,4 @@ Este repositório documenta os conceitos, estruturas e materiais práticos abord
 
 ## 🔗 Recursos e Arquivos
 * **Apresentação Oficial (Canva):** [Acessar Slides](https://canva.link/ihnvof920k6irj3)
-* **Fluxo do Agente:** O código estruturado encontra-se no arquivo [`fluxo-agente-semana-4.json](./fluxo-agente-semana-4.json)` na raiz desta pasta.
+* **Fluxo do Agente:** O código estruturado encontra-se no arquivo [`fluxo-agente-semana-4.json`](./fluxo-agente-semana-4.json) na raiz desta pasta.
