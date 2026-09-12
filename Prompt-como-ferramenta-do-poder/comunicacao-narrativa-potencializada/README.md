@@ -35,4 +35,3 @@ Focada em como montar o gráfico limpo, evitar distorções visuais e estruturar
 * **Tecnologias e Plataformas:** Google Sheets, Canva, Datawrapper e uso de IA (Claude/ChatGPT/Gemini) como apoio estratégico para validar a escolha de gráficos e refinar prompts analíticos[cite: 1, 2].
 
 ---
-*Trilha desenvolvida por Patrícia Oliveira no âmbito do programa Todas em Tech Futuro+ IA.*
