@@ -1,4 +1,6 @@
 # Análise de Conteúdo Netflix: Um Estudo com 8.807 Títulos
+<img width="816" height="494" alt="image" src="https://github.com/user-attachments/assets/73ce2b30-5f8e-4544-ac23-80b0961d5428" />
+
 
 Este projeto foi desenvolvido como parte da **Semana 6: Comunicação + Narrativa Potencializada** da formação **Todas em Tech Futuro+ IA** (Reprograma / FIAP). O objetivo foi aplicar técnicas avançadas de *Storytelling com Dados*, tradução de bases, mapeamento de perguntas de negócio e seleção dos gráficos corretos para estruturar uma análise executiva sobre o catálogo da Netflix.
 
