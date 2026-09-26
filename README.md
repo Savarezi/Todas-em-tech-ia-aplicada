@@ -28,8 +28,8 @@ O curso está organizado em 16 etapas:
 | 04 | 24/08 – 28/08 | 💻 [IA Generativa Aplicada além do ChatGPT](./IA%20Generativa%20Aplicada%20alem%20do%20ChatGPT/) ✅ |
 | 05 | 31/08 – 04/09 | 💻 [Dados como Insumo para Decisão](Dados%20como%20Insumo%20para%20Decis%C3%A3o/)✅ |
 | 06 | 07/09 – 11/09 | 💻 [Comunicação + Narrativa Potencializada](comunicacao-narrativa-potencializada/)✅ |
-| 07 | 14/09 – 18/09 | 💻 [Visão Estratégica — Selecionando o Problema Certo](visao-estrategica-selecionando-o-problema-certo/) |
-| 08 | 21/09 – 25/09 | 💻 [Dados Avançado — De Bruto a Insight](dados-avancado-de-bruto-a-insight/) | ✅ |
+| 07 | 14/09 – 18/09 | 💻 [Visão Estratégica — Selecionando o Problema Certo](visao-estrategica-selecionando-o-problema-certo/) ✅|
+| 08 | 21/09 – 25/09 | 💻 [Dados Avançado — De Bruto a Insight](dados-avancado-de-bruto-a-insight/) ✅|
 | 09 | 28/09 – 02/10 | Ética, Viés e Responsabilidade |
 | 10 | 05/10 – 09/10 | Modelagem de Negócio + Precificação |
 | 11 | 12/10 – 16/10 | Casos de Uso Avançados por Setor |
