@@ -1,6 +1,6 @@
 # 🔍 Projeto Prático: Detetive de Viés (Auditoria de Agentes de IA)
 
-Desenvolvido como o projeto final da **Semana 9** (*Ética, Viés e Responsabilidade em Inteligência Artificial*) do programa **Todas em Tech Futuro+** (Reprograma / FIAP).
+Desenvolvido como o projeto final da **Semana 9** (*Ética, Viés e Responsabilidade em Inteligência Artificial*) do programa **Todas em Tech Futuro+**
 
 ---
 
