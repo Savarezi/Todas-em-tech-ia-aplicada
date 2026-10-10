@@ -1,5 +1,5 @@
 
-# 💜 Todas em Tech Futuro+ (Reprograma / FIAP) - Semana 10: Modelagem de Negócio + Precificação
+# 💜 Todas em Tech Futuro+ - Semana 10: Modelagem de Negócio + Precificação
 
 Repositório dedicado aos estudos, frameworks e entregas práticas da **Semana 10**, ministrada por Jéssica Alves, com foco em transformar ideias em modelos de negócios viáveis, precificação estratégica, testes (MVP) e pitches de alto impacto.
 
