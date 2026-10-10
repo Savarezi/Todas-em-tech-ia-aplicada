@@ -31,7 +31,7 @@ O curso está organizado em 16 etapas:
 | 07 | 14/09 – 18/09 | 💻 [Visão Estratégica — Selecionando o Problema Certo](visao-estrategica-selecionando-o-problema-certo/) ✅|
 | 08 | 21/09 – 25/09 | 💻 [Dados Avançado — De Bruto a Insight](dados-avancado-de-bruto-a-insight/) ✅|
 | 09 | 28/09 – 02/10 | 💻 [Ética, Viés e Responsabilidade](etica-vies-e-responsabilidade/) | ✅ |
-| 10 | 05/10 – 09/10 | Modelagem de Negócio + Precificação |
+| 10 | 05/10 – 09/10 | 💻 [Modelagem de Negócio + Precificação](modelagem-de-negocio-e-precificacao/) | ✅ |
 | 11 | 12/10 – 16/10 | Casos de Uso Avançados por Setor |
 | 12 | 19/10 – 23/10 | Vibe Coding — Prototipar Sem Programar |
 | 13 | 26/10 – 30/10 | RAG, Agents e Automação Avançada |
