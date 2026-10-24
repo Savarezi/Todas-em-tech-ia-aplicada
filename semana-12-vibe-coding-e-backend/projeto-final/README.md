@@ -2,6 +2,8 @@
 
 Este diretório contém os artefatos do aplicativo desenvolvido durante a **Semana 12** do programa **Todas em Tech Futuro+** integrando interface interativa, backend no Supabase e camada de autenticação segura
 
+<img width="500" height="200" alt="image" src="https://github.com/user-attachments/assets/25793b83-05c0-4862-b3e1-71220e658664" />
+
 ---
 
 ## 🛠️ O que compõe este projeto?
