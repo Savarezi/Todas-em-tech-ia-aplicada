@@ -18,3 +18,8 @@ Este diretório contém os artefatos do aplicativo desenvolvido durante a **Sema
 * `prompt_lovable.md` — Prompt original utilizado na construção do app.
 * `apresentacao.html` — Apresentação visual interativa.
 * `documentacao.md` — Especificações técnicas e guias de validação.
+
+---
+>## 🌐 Acesse a Aplicação Online
+Você pode testar o aplicativo "Prompt de Lucro" rodando ao vivo através do link abaixo:
+👉 **[Acessar o Prompt de Lucro no Lovable](https://promptpratico.lovable.app/login)**
