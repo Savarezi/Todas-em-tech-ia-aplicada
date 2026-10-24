@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompt de Lucro - Apresentação 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+:root{--p:#6C5CE7;--p2:#5B42F3;--line:#e6e3f5;--mut:#6b6880}
+html,body{height:100%;margin:0}
+body{font-family:Inter,sans-serif;background:radial-gradient(ellipse at 50% 0%,#14142b 0,transparent 60%),radial-gradient(ellipse at 50% 100%,#120a2a 0,transparent 55%),#0a0a0f;color:#fff;overflow:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block}
+
+#ui{position:relative;z-index:10;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:18px}
+.glass{backdrop-filter:blur(14px);background:rgba(20,12,45,.45);border:1px solid rgba(162,155,254,.35);border-radius:16px;box-shadow:0 0 24px rgba(108,92,231,.25)}
+#st{flex:1;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:14px 0}
+.app{background:rgba(255,255,255,.97);color:#1a1a2e;border-radius:24px;padding:28px;width:min(720px,92vw);box-shadow:0 30px 80px rgba(108,92,231,.55),0 0 0 1px rgba(162,155,254,.5);animation:in .8s cubic-bezier(.2,.8,.2,1)}
+.app.sm{width:min(440px,92vw)}.app.lg{width:min(860px,94vw)}
+.app.bg2{background:linear-gradient(rgba(255,255,255,.97),rgba(247,245,255,.97))}
+@keyframes in{from{opacity:0;transform:translateY(40px) scale(.9)}}
+.logo{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:20px;margin-bottom:14px}
+.logo .lg{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#6C5CE7,#a29bfe);box-shadow:0 6px 16px #6C5CE744}
+.logo b{color:var(--p)}
+h2{font-weight:800;font-size:28px;line-height:1.2;margin:0}
+.c{text-align:center}.sub{color:var(--mut);font-size:14px;margin:6px 0 10px}
+.fld{display:flex;align-items:flex-start;gap:6px;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;background:#fff;min-height:48px;font-size:15px;transition:.3s}
+.fld .ph{color:#9a97ad}.fld.on{border-color:var(--p);box-shadow:0 0 0 3px #6C5CE722}
+.fld.ta{min-height:110px}.fld.code{display:block;font-family:ui-monospace,Consolas,monospace;font-size:13px;line-height:1.6;background:#faf9ff;white-space:pre-wrap;min-height:60px}
+.caret::after{content:"|";color:var(--p);animation:bl .8s infinite}@keyframes bl{50%{opacity:0}}
+.btn{background:var(--p);color:#fff;border-radius:14px;padding:14px;font-weight:700;text-align:center;margin-top:8px;transition:.3s}
+.btn.ghost{background:#fff;color:#1a1a2e;border:1px solid var(--line)}
+.btn.big{background:linear-gradient(90deg,#6C5CE7,#a46ff0);font-size:17px}
+.click{animation:pulse .7s}@keyframes pulse{40%{transform:scale(.95);box-shadow:0 0 0 14px #6C5CE744}}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:14px;margin:6px 0}
+.cb{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:2px solid #cfcbe6;margin-right:8px;vertical-align:middle;color:transparent;font-size:11px;transition:.3s}
+.cb.on{background:var(--p);border-color:var(--p);color:#fff;transform:scale(1.15)}
+.lk{color:var(--p);font-weight:600}
+.card{border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:14px;background:#fff}
+.step{display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px}
+.step b{background:#efecff;color:var(--p2);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:13px}
+.bar{height:8px;background:#f0edff;border-radius:9px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#6C5CE7,#a29bfe);border-radius:9px;transition:width .9s}
+.chip{border:1px solid var(--line);border-radius:999px;padding:8px 16px;display:inline-block;margin:4px 4px 0 0;font-size:14px;transition:.35s}
+.chip.hid{opacity:0;transform:translateY(10px)}
+.chip.sel,.opt.sel{background:var(--p);color:#fff;border-color:var(--p);transform:scale(1.07);box-shadow:0 8px 20px #6C5CE744}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.opt{border:1px solid var(--line);border-radius:14px;padding:16px 6px;text-align:center;font-size:14px;transition:.35s}
+.opt span{display:block;font-size:22px;color:var(--p);margin-bottom:6px}.opt.sel span{color:#fff}
+.lab{color:var(--p);font-weight:700;font-size:11px;letter-spacing:.08em}
+.ic{display:inline-block;border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;transition:.3s;margin-right:6px}
+.star{font-size:24px;color:#888;transition:.4s;display:inline-block}.star.on{color:#f9ca24;transform:scale(1.35) rotate(72deg);text-shadow:0 0 14px #f9ca24}
+.toast{position:fixed;bottom:110px;left:50%;transform:translate(-50%,20px);background:#1a1a2e;color:#fff;padding:10px 18px;border-radius:12px;opacity:0;transition:.4s;font-weight:600;font-size:14px}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);border:0;cursor:pointer;transition:.3s}.dot.on{background:#a29bfe;width:26px;border-radius:9px;box-shadow:0 0 10px #a29bfe}
+.ar{background:none;border:0;color:rgba(255,255,255,.45);font-size:26px;line-height:1;cursor:pointer;transition:.25s;padding:0 4px}.ar.sm{font-size:13px;margin-left:6px}.ar:hover{color:#fff;text-shadow:0 0 10px #a29bfe}
+.nb{padding:10px 20px;border-radius:12px;border:1px solid rgba(162,155,254,.4);background:rgba(255,255,255,.1);color:#fff;font-weight:600;cursor:pointer;transition:.2s}.nb:hover{background:rgba(255,255,255,.22)}
+@media(max-width:640px){.opts{grid-template-columns:repeat(2,1fr)}h2{font-size:22px}.app{padding:20px}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="ui">
+  <main id="st"></main>
+  <footer class="flex justify-center items-center gap-5 pb-1">
+    <button class="ar" id="prev" aria-label="Anterior">‹</button>
+    <div class="flex items-center gap-2" id="dots"></div>
+    <button class="ar" id="next" aria-label="Próximo">›</button>
+    <button class="ar sm" id="auto" aria-label="Autoplay">▶</button>
+  </footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let tok=0,cur=0,auto=false;
+
+/* ---------- Fundo 3D: backend de IA (grade, constelação e tokens, bem lento) ---------- */
+const R=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(55,1,.1,200);
+S.fog=new THREE.Fog(0x0a0a0f,22,62);
+let camR=26;
+function rs(){R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();camR=C.aspect<1?38:26}
+addEventListener('resize',rs);rs();
+const ADD=THREE.AdditiveBlending,PAL=[0x22d3ee,0x3b82f6,0x8b5cf6],tc=new THREE.Color();
+const rnd=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)];
+// grade cibernética no chão, deslizando devagar
+const GN=40,GS=2.4,ext=GN*GS/2,gp=[];
+for(let i=-GN/2;i<=GN/2;i++)gp.push(-ext,0,i*GS,ext,0,i*GS,i*GS,0,-ext,i*GS,0,ext);
+const gg=new THREE.BufferGeometry();gg.setAttribute('position',new THREE.Float32BufferAttribute(gp,3));
+const grid=new THREE.LineSegments(gg,new THREE.LineBasicMaterial({color:0x4f46e5,transparent:true,opacity:.14,blending:ADD,depthWrite:false}));
+grid.position.y=-9;S.add(grid);
+// constelação de nós conectados
+const NN=130,BX=[36,16,26],MAXL=520,np=new Float32Array(NN*3),nc=new Float32Array(NN*3),nv=[],nh=[];
+for(let i=0;i<NN;i++){np.set([rnd(-BX[0],BX[0]),rnd(-BX[1],BX[1]),rnd(-BX[2],BX[2])],i*3);nv.push([rnd(-.16,.16),rnd(-.1,.1),rnd(-.16,.16)]);
+  const h=pick(PAL);tc.setHex(h);nh.push([tc.r,tc.g,tc.b]);nc.set(nh[i],i*3)}
+const ng=new THREE.BufferGeometry();ng.setAttribute('position',new THREE.BufferAttribute(np,3));ng.setAttribute('color',new THREE.BufferAttribute(nc,3));
+const nodes=new THREE.Points(ng,new THREE.PointsMaterial({size:.22,vertexColors:true,transparent:true,opacity:.7,blending:ADD,depthWrite:false}));nodes.frustumCulled=false;S.add(nodes);
+const lp=new Float32Array(MAXL*6),lc=new Float32Array(MAXL*6),lg=new THREE.BufferGeometry();
+lg.setAttribute('position',new THREE.BufferAttribute(lp,3));lg.setAttribute('color',new THREE.BufferAttribute(lc,3));
+const links=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.55,blending:ADD,depthWrite:false}));links.frustumCulled=false;S.add(links);
+// trechos de código e tokens flutuando
+const WORDS=['prompt','tokens','<system>','def generate():','{ "role": "user" }','embedding[768]','softmax(x)','attention(Q,K,V)','temperature = 0.7','max_tokens: 512','context_window','decode()','0x3F9A','top_p = 0.9','logits','</response>','tokenize(text)','stream = True','vector_db.query()','await model.run()','layer_norm','"output": "..."'];
+const tk=WORDS.map((w,i)=>{const c=document.createElement('canvas');c.width=512;c.height=64;const x=c.getContext('2d');
+  x.font='500 30px ui-monospace,Consolas,monospace';x.fillStyle='#'+PAL[i%3].toString(16).padStart(6,'0');x.textBaseline='middle';x.fillText(w,8,32);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,opacity:rnd(.1,.26),depthWrite:false,blending:ADD}));
+  sp.scale.set(7,.875,1);sp.position.set(rnd(-30,30),rnd(-14,14),rnd(-22,12));sp.userData.v=rnd(.13,.32);S.add(sp);return sp});
+let tgt=0,ang=0;function fly(i){tgt=i*.05}
+const ck=new THREE.Clock();
+(function loop(){
+  const dt=Math.min(ck.getDelta(),.05),t=ck.elapsedTime;
+  ang+=(tgt-ang)*dt*.55;
+  grid.position.z=(t*.2)%GS;
+  for(let i=0;i<NN;i++)for(let k=0;k<3;k++){const j=i*3+k;np[j]+=nv[i][k]*dt;if(Math.abs(np[j])>BX[k])nv[i][k]*=-1}
+  ng.attributes.position.needsUpdate=true;
+  let n=0;
+  for(let i=0;i<NN&&n<MAXL;i++)for(let j=i+1;j<NN&&n<MAXL;j++){
+    const dx=np[i*3]-np[j*3],dy=np[i*3+1]-np[j*3+1],dz=np[i*3+2]-np[j*3+2],d2=dx*dx+dy*dy+dz*dz;
+    if(d2<64){const f=(1-Math.sqrt(d2)/8)*.5,o=n*6;
+      lp.set([np[i*3],np[i*3+1],np[i*3+2],np[j*3],np[j*3+1],np[j*3+2]],o);
+      lc.set([nh[i][0]*f,nh[i][1]*f,nh[i][2]*f,nh[j][0]*f,nh[j][1]*f,nh[j][2]*f],o);n++}}
+  lg.setDrawRange(0,n*2);lg.attributes.position.needsUpdate=true;lg.attributes.color.needsUpdate=true;
+  tk.forEach(s=>{s.position.y+=s.userData.v*dt;if(s.position.y>15){s.position.y=-15;s.position.x=rnd(-30,30)}});
+  const a=ang+Math.sin(t*.04)*.3;
+  C.position.set(Math.sin(a)*camR,2+Math.sin(t*.032)*2,Math.cos(a)*camR);C.lookAt(0,0,0);
+  R.render(S,C);requestAnimationFrame(loop);
+})();
+
+/* ---------- Helpers de animação ---------- */
+async function typ(t,el,txt,sp=28){
+  el.classList.add('on');el.querySelector('.ph').style.display='none';
+  const v=el.querySelector('.v');v.classList.add('caret');
+  for(const c of txt){if(t!==tok)return false;v.textContent+=c;await sleep(sp+Math.random()*22)}
+  v.classList.remove('caret');return t===tok;
+}
+async function clk(t,el,cls='click',wait=600){await sleep(wait);if(t!==tok)return false;el.classList.add(cls);await sleep(700);return t===tok}
+async function reveal(t,sel){for(const c of $$(sel)){if(t!==tok)return false;c.classList.remove('hid');await sleep(130)}return true}
+function prog(n){const p=Math.max(25,Math.round(n/7*100));$('#lb').textContent=n+' de 7 etapas';$('#pc').textContent=p+'%';$('#pb').style.width=p+'%'}
+
+/* ---------- Conteúdo ---------- */
+const PERSONA='Aja como um Copywriter especialista em Instagram para confeitaria, focado em venda direta';
+const OBJ='Criar 5 legendas que vendam meu bolo de pote de Ninho por R$12';
+const DET='Vendo bolo de pote, meu público é mulher de 25 a 40 anos em São Paulo. Meu diferencial é recheio cremoso e entrega no mesmo dia, preço R$ 12.';
+const REST='Não usar gírias, não prometer emagrecimento, não inventar ingredientes';
+const REF='Olha esse bolo cremoso que derrete na boca! Fiz só 50 hoje e já estão acabando. Entrega hoje em SP por R$12. Me chama no Whats que eu guardo o seu!.';
+const PROMPT=`Aja como "${PERSONA}". Seu objetivo é "${OBJ}". Contexto: Ex: "Vendo bolo de pote, meu público é mulher 25-40 anos de São Paulo, meu diferencial é recheio cremoso e entrega no mesmo dia, preço R$12". Formato: Lista. Restrições: Ex: "${REST}". Tom: Amigável. Exemplo: ${REF} Entregue pronto para gerar lucro.`;
+
+const LEG=`Para estruturar suas legendas de forma focada em venda direta, preparei 5 estratégias diferentes de copywriting. Todas destacam o recheio super cremoso, a praticidade da entrega no mesmo dia em São Paulo e o valor super acessível de R$ 12.
+
+Aqui estão as suas 5 legendas prontas para colar e vender:
+
+1. Foco em Desejo e Venda Rápida (Urgência)
+Olha a cremosidade desse recheio de Ninho! Dá vontade de comer só de olhar, né? 😋
+Produzi uma remessa bem fresquinha hoje, mas as unidades são limitadas e costumam acabar rápido. Ele é feito com Ninho de verdade, super cremoso e no ponto perfeito de doçura.
+✨ Entregamos hoje mesmo aí na sua casa ou trabalho em São Paulo!
+💰 Apenas R$ 12,00 cada.
+Não passe vontade à toa! Me chama agora no direct ou clica no link da bio para garantir o seu antes que esgote! 📲👇
+
+2. Foco em Resolver a Vontade da Tarde (Gatilho da Pausa do Café)
+Bateu aquela vontade incontrolável de comer um doce bem gostoso no meio da tarde? 🤤
+O nosso Bolo de Pote de Ninho é a pausa perfeita para o seu dia. Cada colherada tem aquela textura aveludada e ultra cremosa que derrete na boca e deixa qualquer dia mais leve.
+🚀 Pediu, chegou! Entregamos no mesmo dia em São Paulo.
+💵 Por apenas R$ 12,00.
+Sua tarde merece esse carinho. Mande uma mensagem no direct agora e receba o seu ainda hoje! 🍰✨
+
+3. Foco em Custo-Benefício e Sobremesa Perfeita
+Sobremesa cremosa, artesanal e feita com todo o carinho... por apenas R$ 12? Sim, é real! ❤️
+O Bolo de Pote de Ninho é o queridinho por aqui por um motivo: a generosidade do recheio. Cada camada é pensada para entregar o máximo de cremosidade e sabor.
+📦 Entrega rápida hoje mesmo para São Paulo!
+🏷️ Apenas R$ 12,00 a unidade.
+Que tal garantir o seu para mais tarde? Mande um direct agora ou clique no link da bio e faça seu pedido! 🎉
+
+4. Foco em Prova Visual e Exclusividade
+Sabe aquele bolo de pote bem molhadinho e com recheio cremoso de verdade? É exatamente esse que acabou de sair da nossa cozinha! 🧁✨
+Preparamos tudo hoje para você saborear o produto o mais fresco possível. E o melhor: você nem precisa sair de casa para aproveitar.
+🛵 Fazemos entrega no mesmo dia para toda São Paulo!
+💳 Valor: Apenas R$ 12,00.
+As colheres já estão a postos? Responda a este post ou me chame no direct para garantir o seu antes que essa fornada acabe! 💛
+
+5. Foco em Ação Direta e Praticidade (Curta e Objetiva)
+Um bolo de pote de Ninho absurdamente cremoso esperando por você! 😍
+Se você ama um doce bem recheado e feito no capricho, esse é o momento. Pedindo agora, ele chega aí na sua mão hoje mesmo!
+📍 Entrega hoje em São Paulo
+💲 Apenas R$ 12,00
+Clique no link da bio ou me chame no direct para pedir o seu agora mesmo! 📲🚀
+
+💡 Dica extra de copywriting: Na hora de publicar, sempre poste um vídeo curto ou foto de alta qualidade mostrando bem a colher tirando uma porção bem generosa do recheio. O apelo visual junto com a legenda vai acelerar muito as suas vendas hoje!`;
+const fld=(ph,c='')=>`<div class="fld ${c}"><span class="ph">${ph}</span><span class="v"></span></div>`;
+const logo=`<div class="logo"><span class="lg">✦</span><span>Prompt de <b>Lucro</b></span></div>`;
+const hdr=n=>{const d=n-1,p=Math.max(25,Math.round(d/7*100));return `<h2>Crie seu prompt de lucro</h2><p class="sub">Responda as perguntas e receba um prompt pronto para usar.</p><div class="row" style="font-size:12px;color:var(--mut)"><span id="lb">${d} de 7 etapas</span><span id="pc" style="color:var(--p)">${p}%</span></div><div class="bar"><i id="pb" style="width:${p}%"></i></div>`};
+const step=(n,q,body)=>hdr(n)+`<div class="card"><div class="step"><b>${n}</b>${q}</div>${body}</div>`;
+const one=(n,txt)=>async t=>{if(await typ(t,$('.fld'),txt))prog(n)};
+
+const SL=[
+{h:logo+`<h2 class="c">Crie sua conta</h2><p class="sub c">Comece a criar prompts que geram lucro</p>`+fld('Nome completo')+fld('seu@email.com')+fld('Criar senha (mín. 6 caracteres)')+fld('Confirmar senha')+`<div class="btn" id="b">Criar minha conta</div><p class="sub c">Já tem uma conta? <span class="lk">Fazer login</span></p>`,c:'sm',
+ run:async t=>{const f=$$('.fld');
+  if(!await typ(t,f[0],'Patrícia Oliveira'))return;
+  if(!await typ(t,f[1],'patriciasavarezioliveira@gmail.com',20))return;
+  if(!await typ(t,f[2],'••••••••',60))return;
+  if(!await typ(t,f[3],'••••••••',60))return;
+  await clk(t,$('#b'))}},
+{h:logo+`<h2 class="c">Bem-vindo de volta</h2><p class="sub c">Entre com seu e-mail e senha</p>`+fld('seu@email.com')+fld('Sua senha')+`<div class="row"><span><i class="cb" id="cb">✓</i>Lembrar de mim</span><span class="lk">Esqueci minha senha?</span></div><div class="btn" id="b">Entrar</div><p class="sub c">Não tem conta? <span class="lk">Criar conta</span></p>`,c:'sm bg2',
+ run:async t=>{const f=$$('.fld');
+  if(!await typ(t,f[0],'patriciasavarezioliveira@gmail.com',20))return;
+  if(!await typ(t,f[1],'••••••••',60))return;
+  if(!await clk(t,$('#cb'),'on',400))return;
+  await clk(t,$('#b'))}},
+{h:step(1,'Quem você quer que a IA seja?',fld('Ex: Copywriter especialista em Instagram')+['Advogado','Nutricionista','Copywriter','Vendedor','Professor','Designer'].map(x=>`<span class="chip hid">${x}</span>`).join('')),
+ run:async t=>{if(!await typ(t,$('.fld'),PERSONA))return;prog(1);if(!await reveal(t,'.chip'))return;await clk(t,$$('.chip')[2],'sel',300)}},
+{h:step(2,'O que você quer conseguir?',fld('Ex: "Criar 3 textos para vender meu bolo no Instagram"','ta')),run:one(2,OBJ)},
+{h:step(3,'Sobre o que é?',fld('Descreva seu negócio, público, produto, preço, diferenciais...','ta')),run:one(3,DET)},
+{h:step(4,'Como quer receber?',`<div class="opts">`+[['≡','Texto corrido'],['☰','Lista'],['▦','Tabela'],['▶','Roteiro para Reels']].map(o=>`<div class="opt"><span>${o[0]}</span>${o[1]}</div>`).join('')+`</div>`),
+ run:async t=>{await sleep(900);if(await clk(t,$$('.opt')[1],'sel',300))prog(4)}},
+{h:step(5,'O que a IA NÃO pode fazer?',fld('Ex: Não usar gírias, não inventar preços')),run:one(5,REST)},
+{h:step(6,'Qual tom de voz?',['Direto e Vendedor','Amigável','Profissional','Engraçado','Provocativo'].map(x=>`<span class="chip">${x}</span>`).join('')),
+ run:async t=>{await sleep(900);if(await clk(t,$$('.chip')[1],'sel',300))prog(6)}},
+{h:step(7,'Tem algum exemplo?',fld('Cole um texto de referência (opcional)','ta')),run:one(7,REF)},
+{h:`<div class="btn big" id="b">Gerar meu PROMPT de Lucro 🚀</div><div class="card" id="res" style="display:none"><div class="lab">SEU PROMPT ESTÁ PRONTO</div><h3 style="font-weight:800;font-size:19px;margin:4px 0 12px">"Criar 5 legendas que vendam"</h3><div class="fld code"><span class="ph"></span><span class="v"></span></div><div class="flex gap-3"><div class="btn" style="flex:1" id="cp">Copiar Prompt</div><div class="btn ghost" style="flex:1">Ver Meus Prompts</div></div></div>`,c:'lg',
+ run:async t=>{if(!await clk(t,$('#b'),'click',900))return;const r=$('#res');r.style.display='block';r.style.animation='in .7s both';
+  if(!await typ(t,$('.fld.code'),PROMPT,7))return;await clk(t,$('#cp'))}},
+{h:`<h2>Minha Biblioteca</h2><p class="sub">Todos os seus prompts em um só lugar.</p><div class="flex gap-3 items-center"><div class="fld" style="flex:1;margin:10px 0">⌕&nbsp;<span class="ph">Buscar por palavra-chave...</span><span class="v"></span></div><span class="chip sel" style="margin:0">Todos</span><span class="chip" style="margin:0">Favoritos</span></div><div class="card" style="max-width:440px;margin-top:6px"><div class="flex justify-between items-start"><div><b style="font-size:17px">"Criar 5 legendas que vendam"</b><div style="font-size:12px;margin-top:2px">22/10/2026</div></div><span class="star" id="st1">☆</span></div><p class="sub" style="margin:10px 0">Aja como "Aja como um Copywriter especialista em Instagram para confeitaria, focado em venda direta"...</p><div class="flex justify-between items-center"><div><span class="ic" id="cpy">⧉ Copiar</span><span class="ic">◉ Ver detalhes</span></div><span style="color:#e03131;font-size:18px">🗑</span></div></div><div class="toast" id="ts">Copiado com sucesso!</div>`,c:'lg',
+ run:async t=>{await sleep(900);const s=$('#st1');if(t!==tok)return;s.textContent='★';s.classList.add('on');await sleep(1100);
+  if(!await clk(t,$('#cpy'),'click',300))return;$('#ts').classList.add('on');await sleep(2200);$('#ts').classList.remove('on')}},
+{h:`<h2>Suas 5 Legendas Prontas</h2><p class="sub">Resultado gerado pela IA a partir do seu prompt</p><div class="fld code" style="max-height:52vh;overflow-y:auto"><span class="ph"></span><span class="v"></span></div><div class="btn" id="cp2">Copiar Legendas</div><div class="toast" id="ts">Copiado com sucesso!</div>`,c:'lg',
+ run:async t=>{await sleep(500);const el=$('.fld.code');el.classList.add('on');el.querySelector('.ph').style.display='none';const v=el.querySelector('.v');v.classList.add('caret');
+  for(let i=0;i<LEG.length;i+=5){if(t!==tok)return;v.textContent=LEG.slice(0,i+5);el.scrollTop=el.scrollHeight;await sleep(14)}
+  v.classList.remove('caret');await sleep(700);if(t!==tok)return;el.scrollTop=0;
+  if(await clk(t,$('#cp2'))){$('#ts').classList.add('on');await sleep(2200);$('#ts').classList.remove('on')}}}
+];
+
+/* ---------- Navegação ---------- */
+const dots=SL.map((_,i)=>{const d=document.createElement('button');d.className='dot';d.onclick=()=>go(i);$('#dots').appendChild(d);return d});
+function go(i){
+  if(i<0||i>=SL.length)return;
+  tok++;const t=tok;cur=i;
+  $('#st').innerHTML=`<div class="app ${SL[i].c||''}">${SL[i].h}</div>`;
+  dots.forEach((d,k)=>d.classList.toggle('on',k==i));
+  fly(i);
+  (async()=>{await sleep(1000);if(t!==tok)return;await SL[i].run(t);
+    if(auto&&t===tok){await sleep(1800);if(t===tok)go(i+1)}})();
+}
+$('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
+$('#auto').onclick=()=>{auto=!auto;$('#auto').textContent=auto?'❚❚':'▶'};
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+go(0);
+</script>
+</body>
+</html>
