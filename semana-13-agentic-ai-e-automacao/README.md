@@ -14,4 +14,13 @@ Repositório dedicado aos estudos, conceitos práticos e entregas da **Semana 13
 ---
 
 ## 🚀 Projeto Prático da Semana (Projeto 2.0)
+
 Nesta semana, evoluímos o projeto anterior adicionando uma camada de agente autônomo estruturado através da **Descrição do Agente** (objetivo, regras de confirmação, ferramentas, gatilhos e monitoramento de sucesso)[cite: 181, 236].
+
+---
+
+## 📂 Estrutura da Semana
+
+- `semana-13-agentic-ai-e-automacao/`
+  - `README.md`: Documentação teórica da semana.
+  - `projeto-ele-agenda/`: Subpasta dedicada ao desenvolvimento e documentação do **Ele Agenda**.
