@@ -1,6 +1,6 @@
 # 🚀 Ele Agenda — Agente IA de Agendamento Autônomo
 
-Projeto prático desenvolvido para o desafio final da **Semana 13** (*Agentic AI, RAG e Automação Avançada*) do programa **Todas em Tech Futuro+** (Reprograma / FIAP).
+Projeto prático desenvolvido para o desafio final da **Semana 13** (*Agentic AI, RAG e Automação Avançada*) do programa **Todas em Tech Futuro+** .
 
 ---
 
