@@ -33,8 +33,8 @@ O curso está organizado em 16 etapas:
 | 09 | 28/09 – 02/10 | 💻 [Ética, Viés e Responsabilidade](etica-vies-e-responsabilidade/) | ✅ |
 | 10 | 05/10 – 09/10 | 💻 [Modelagem de Negócio + Precificação](modelagem-de-negocio-e-precificacao/) | ✅ |
 | 11 | 12/10 – 16/10 | 💻 [Semana 11: Casos de Uso Avançados por Setor](casos-de-uso-avancados-por-setor/) ✅|
-| 12 | 19/10 – 23/10 | 💻[Semana 12: Vibe Coding — Prototipar Sem Programar](semana-12-vibe-coding-e-backend/) ✅
-| 13 | 26/10 – 30/10 | RAG, Agents e Automação Avançada |
+| 12 | 19/10 – 23/10 | 💻 [Semana 12: Vibe Coding — Prototipar Sem Programar](semana-12-vibe-coding-e-backend/) ✅
+| 13 | 26/10 – 30/10 | 💻 [ [Semana 13: Agentic AI, RAG e Automação Avançada](semana-13-agentic-ai-e-automacao/) ✅
 | 14 | 02/11 – 06/11 | Escala e Otimização |
 | 15 | 09/11 – 13/11 | Apresentação + Feedback de Mercado |
 | 16 | 16/11 – 19/11 | Lançamento + Celebração + Próximos Passos |
