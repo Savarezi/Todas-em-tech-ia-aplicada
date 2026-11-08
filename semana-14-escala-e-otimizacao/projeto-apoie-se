@@ -1,1 +1,30 @@
 
+# 🚀 Apoie-se — Plataforma Social de Oportunidades em Tecnologia
+
+Projeto desenvolvido para o desafio final da **Semana 14** (*Escala e Otimização*) do programa **Todas em Tech Futuro+** (Reprograma / FIAP).
+
+---
+
+## 📌 Sobre o Projeto
+O **Apoie-se** (https://apoiase.lovable.app) é uma plataforma gratuita desenhada para conectar meninas cis e trans a partir de 16 anos em situação de vulnerabilidade social ao universo da tecnologia e dos negócios.
+
+A plataforma reúne:
+- **Conteúdos educativos:** Empreendedorismo, tecnologia, carreira e LinkedIn.
+- **Fórum colaborativo:** Espaço seguro para troca de dúvidas e experiências.
+- **Rede de conexões:** Construção de relacionamentos e oportunidades.
+
+> *"Ninguém precisa saber tudo para começar. A gente começa junto."*
+
+---
+
+## 🛠️ Arquitetura e Segurança
+- **Publicação (Deploy):** Hospedado na Vercel / Lovable Cloud.
+- **Segurança de Dados:** Credenciais protegidas no servidor, sem exposição de chaves no código.
+- **Banco de Dados Protegido:** Ativação de Row Level Security (RLS) para controle rígido de acessos.
+- **Governança:** Fluxo de aprovação de cadastro e moderação ativa da comunidade.
+
+---
+
+## 📄 Arquivos do Projeto nesta Pasta
+- `documentacao_tecnica.md`: Especificações de segurança, infraestrutura e monitoramento.
+- `pitch_slides.md`: Estrutura do pitch executivo em 6 pilares.
