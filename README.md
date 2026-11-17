@@ -63,12 +63,31 @@ As atividades e materiais serão adicionados ao repositório conforme o andament
 
 A estrutura será organizada por aula, reunindo os materiais, exercícios, testes, documentações e projetos desenvolvidos durante a formação.
 
-## 🚀 Status
+---
 
-🟢 **Em andamento**
+>>## ## 🏆 Projeto Final — Garimpo Delas
 
-Este repositório será atualizado ao longo do curso conforme novos conteúdos, atividades e projetos forem desenvolvidos.
+>>Repositório oficial da aplicação e da documentação do **Garimpo Delas** (https://garympodla.lovable.app), desenvolvido como projeto final para a etapa conclusiva do programa **Todas em >>Tech Futuro+** ({reprograma} / FIAP).
+
+O **Garimpo Delas** é uma comunidade digital exclusiva para mulheres que conecta participantes por meio da reutilização, troca e doação gratuita de itens em bom estado, unindo economia circular, consumo consciente e colaboração feminina.
 
 ---
+
+### 📂 Estrutura do Projeto Final
+Você pode navegar pelas pastas e artefatos desenvolvidos ao longo do projeto através dos links abaixo:
+
+* **[documentacao/](./projeto-final/documentacao/)** — Contém a **Documentação-Mestra do Projeto (Versão 2.0)** consolidada, detalhando a concepção, arquitetura, requisitos funcionais e regras de negócio.
+* **[prompts/](./projeto-final/prompts/)** — Histórico completo dos prompts estruturados utilizados no desenvolvimento iterativo da aplicação nas 5 etapas principais.
+* **[testes/](./projeto-final/testes/)** — Relatórios e planilha oficial de validação e garantia de qualidade (QA) do Assistente de IA e fluxos da plataforma.
+* **[apresentacao/](./projeto-final/apresentacao/)** — Roteiro oficial de slides, pitch e materiais de defesa acadêmica para a banca avaliadora.
+* **[automacoes/](./projeto-final/automacoes/)** — Blueprint sanitizado da automação em Make responsável pelo fluxo integrado do botão de Feedback e disparo de e-mails em tempo real.
+
+---
+
+### 🛠️ Stack Tecnológica & Arquitetura
+* **Frontend & Publicação:** Desenvolvido no Lovable e publicado em ambiente de produção na nuvem.
+* **Backend & Banco de Dados:** Supabase (PostgreSQL relacional, autenticação segura e Supabase Storage para imagens).
+* **Automação de Processos:** Make (cenários integrados para gestão do feedback de usuárias e respostas automáticas).
+* **Governança e Segurança:** Ativação de Row Level Security (RLS) em todas as tabelas e proteção de dados sensíveis (e-mail e telefone nunca exibidos publicamente).
 
 >**Curso de Inteligência Artificial — 2026**
