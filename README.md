@@ -67,7 +67,7 @@ A estrutura será organizada por aula, reunindo os materiais, exercícios, teste
 
 >>## ## 🏆 Projeto Final — Garimpo Delas
 
->>Repositório oficial da aplicação e da documentação do **Garimpo Delas** (https://garympodla.lovable.app), desenvolvido como projeto final para a etapa conclusiva do programa **Todas em >>Tech Futuro+** ({reprograma} / FIAP).
+>>Repositório oficial da aplicação e da documentação do **Garimpo Delas** (https://garympodla.lovable.app), desenvolvido como projeto final para a etapa conclusiva do programa **Todas em >>Tech Futuro+** ({reprograma} / .
 
 O **Garimpo Delas** é uma comunidade digital exclusiva para mulheres que conecta participantes por meio da reutilização, troca e doação gratuita de itens em bom estado, unindo economia circular, consumo consciente e colaboração feminina.
 
